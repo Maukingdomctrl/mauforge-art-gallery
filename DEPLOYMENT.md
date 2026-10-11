@@ -2,7 +2,19 @@
 
 The website is a static site. No build command or special hosting environment is required.
 
-## Option A: Upload directly to Cloudflare Pages
+## Option A: Deploy from GitHub (recommended)
+
+Use this option for the complete site. It includes Pages Functions for `/api/health` and `/api/enquiry`, which direct ZIP uploads do not support.
+
+1. In Cloudflare, open **Workers & Pages** and select **Create application**, then **Pages**, then **Connect to Git**.
+2. Select `Maukingdomctrl/mauforge-art-gallery` and production branch `main`.
+3. Select framework preset **None**, leave the build command empty, and set the build output directory to `.`.
+4. Select **Save and Deploy**. Confirm `<project>.pages.dev/api/health` returns `{"status":"ok"}`.
+5. Open **Custom domains**, enter `art.mauforge.com`, and follow the matching DNS instructions below.
+
+## Option B: Upload directly to Cloudflare Pages
+
+Use this only for the static gallery. Pages Functions are not available with a direct upload.
 
 1. Open the Cloudflare dashboard and select **Workers & Pages**.
 2. Select **Create application**, then **Pages**, then **Upload assets**.
@@ -24,7 +36,7 @@ After the record is saved, return to Cloudflare Pages and wait for the custom do
 
 The project contains Cloudflare Pages security headers in `_headers`, plus `robots.txt`, `sitemap.xml`, a canonical URL, social-preview metadata, and structured gallery data. Keep these files at the published site's root. The Content Security Policy intentionally allows only files hosted by this site; add a domain to the relevant directive only when a future feature truly needs it.
 
-## Option B: Deploy from any supported Git provider
+## Deploy from another supported Git provider
 
 If you prefer automatic updates, create a repository with these files in its root, then in Cloudflare Pages choose **Connect to Git** instead of **Upload assets**. Cloudflare supports GitHub and GitLab; use the provider you already have. For this site use:
 
